@@ -13,6 +13,12 @@ import java.util.List;
 public class MainPage {
     public MainPage (WebDriver driver) {PageFactory.initElements(driver, this);}
 
+    @FindBy(xpath = "//nav[@class='header-bar_left']")
+    WebElement listHeader;
+
+    @FindBy(xpath = "//p[@class='section-content_descriptor']")
+    WebElement mTitle;
+
     @FindBy(xpath = "//ul[@class=\"block-course-cats_list\"]")
     WebElement blockCourseList;
 
@@ -48,6 +54,22 @@ public class MainPage {
 
     public void clickBlogButton() {
         blogButton.click();
+    }
+
+    public String getMTitleText(){
+        return mTitle.getText();
+    }
+
+    public List<String> checkHeaderTitles(List<String> stringList){
+        List<WebElement> titleList= listHeader.findElements(By.tagName("a"));
+        List <String>listNotEquals= new ArrayList<>();
+//       List <WebElement> titleList = listHeader.findElement(By.tagName("a"));
+       for(WebElement element:titleList){
+           if (!stringList.contains(element.getText().replace(" ", ""))){
+               listNotEquals.add(element.getText());
+           }
+       }
+       return listNotEquals;
     }
 }
 
