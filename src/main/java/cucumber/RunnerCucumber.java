@@ -1,19 +1,34 @@
 package cucumber;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.SnippetType;
-import cucumber.api.junit.Cucumber;
+
+import driverConfig.BROWSER;
+import driverConfig.DriverFactory;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/main/java/cucumber/features",
-        glue = "src/main/java/cucumber/steps",
-        tags = "@MainPageFeature",
+        features = "src/main/java/cucumber/features/HomeWork13.feature",
+        glue = "cucumber.steps",
+        tags = "@TestCertificate",
         dryRun = false,
-        strict = false,
-        snippets = SnippetType.CAMELCASE)
+        snippets = CucumberOptions.SnippetType.CAMELCASE)
 
 public class RunnerCucumber {
+    //protected static WebDriver driver = DriverFactory.getDriver(BROWSER.CHROME);
 
+    @BeforeClass
+    public static void start() {
+        Base.driver = DriverFactory.getDriver(BROWSER.CHROME);
+    }
+
+    @AfterClass
+    public static void end() {
+        Base.driver.quit();
+
+
+    }
 }
